@@ -1,0 +1,19 @@
+prompt = 'Number of cars to receive data';
+x = input(prompt);
+track = []
+for i = 1:x
+    promptf = 'input frame';
+    prompts = 'input sequence';
+    promptid = 'input id';
+    seq = input(prompts)
+    frame = input(promptf)
+    id = input(promptid)
+    
+    ans = readLabels('../../../data_tracking_label_2/training/label_02', seq);
+    ans = struct2table(ans{frame})
+    for m = size(ans,1)
+        if ans(3,'id') ==1
+    ans = 
+    track = [track; ans]
+end
+    

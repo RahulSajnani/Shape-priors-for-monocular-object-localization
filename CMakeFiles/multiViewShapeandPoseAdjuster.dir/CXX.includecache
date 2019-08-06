@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/costFunctions.hpp
+ceres/ceres.h
+-
+ceres/rotation.h
+-
+
+/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/multiViewShapeandPoseAdjuster.cc
+cmath
+-
+cstdio
+-
+fstream
+-
+iostream
+-
+math.h
+-
+ceres/loss_function.h
+-
+ceres/iteration_callback.h
+-
+ceres/rotation.h
+-
+problemStructs.hpp
+/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/problemStructs.hpp
+costFunctions.hpp
+/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/costFunctions.hpp
+
+/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/problemStructs.hpp
+ceres/ceres.h
+-
+ceres/rotation.h
+-
+
