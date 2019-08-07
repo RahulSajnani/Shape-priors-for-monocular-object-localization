@@ -28,8 +28,8 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
     VECTORS = {};
     LaftersingleView = {};
     POSEafterPnP = {};
-    T = [1 0 0;0 cos(pi/2) sin(pi/2);0 -sin(pi/2) cos(pi/2)];
-    r = [cos(pi) sin(pi) 0; -   sin(pi) cos(pi) 0;0 0 1];
+    T = [cos(pi/2) 0 -sin(pi/2);0 1 0;sin(pi/2) 0 cos(pi/2)];
+    r = [cos(pi) sin(pi) 0; -sin(pi) cos(pi) 0;0 0 1];
     T2 = [cos(pi/2) 0 sin(pi/2); 0, 1, 0; -sin(pi/2), 0, cos(pi/2)];
     % transformation to align world with KITTI dataset camera
     r = r*T;
@@ -39,7 +39,7 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         
         %change path according to your system
         Image = fullfile('~/Robotics Research Centre/KITTI dataset/data_tracking_image_2/training/image_02/', sprintf('%04d/%06d.png', table2array(tracklets(i, {'sequence'})), table2array(tracklets(i, {'frame'}))));        
-        NetPts = reshape(Pts(i,:), 3, 14);%pts from the Hourglass network
+        NetPts = reshape(Pts(i,:), 3, 36);%pts from the Hourglass network
         
         % x and y points to estimate translation
         xp = (table2array(tracklets(i,{'x2'})) + table2array(tracklets(i,{'x1'})))/2;
@@ -55,7 +55,7 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         
         
         %azimuthal angle with some noise
-        ry = table2array(tracklets(i,{'ry'})) + normrnd(0,15*pi/180);
+        ry = table2array(tracklets(i,{'ry'})) + normrnd(0,15*pi/180)
         
         %calculating translation vector
         Trans = TransFromPoint(xp, yp, height_camera, K);
@@ -66,13 +66,15 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         %d3PlotPts = (T3)*(T2)*(inv(r)*(frame2') + Trans3dcent) + Trans ;
         
         %3d world points
-        d3PlotPtsWorld3d = (T3)*(T2)*(inv(r)*(frame2')) + Trans + Trans3dcent;
+        d3PlotPtsWorld3d = T3*(T2)*(inv(r)*(frame2')) + Trans + Trans3dcent;
         
+        
+        %visualizeWireframe3D(frame2', ry, Trans);
         SHAPEbeforesingleView{i} = d3PlotPtsWorld3d';
         CENTER{i} = mean(d3PlotPtsWorld3d');
         
-        for j=1:5
-             eigVectors(j,:) =reshape(((T3)*(T2)*(inv(r))*reshape(eigVectors2(j,:),3,14)),1,42);
+        for j=1:42
+             eigVectors(j,:) =reshape(((T3)*(T2)*(inv(r))*reshape(eigVectors2(j,:),3,36)),1,3*36);
         end
         
         VECTORS{i} = eigVectors;
@@ -111,7 +113,7 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         
         d3PlotPts = K*d3PlotPtsWorld3d;
         d3PlotPts = d3PlotPts./d3PlotPts(3,:);
-        NetPts = reshape(Pts(i,:), 3, 14);
+        NetPts = reshape(Pts(i,:), 3, 36);
         tmpkps = NetPts';
         KPS{i} = [tmpkps(:,1:2) kpout];
         h = figure;
@@ -137,7 +139,7 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         %visualize3dscene(d3PlotPtsWorld,height_camera);
         d3PlotPts2 = K*d3PlotPtsWorld3D;
         d3PlotPts2 = d3PlotPts2./d3PlotPts2(3,:);
-        NetPts = reshape(Pts(i,:), 3, 14);
+        NetPts = reshape(Pts(i,:), 3, 36);
         
         subplot(2,2,3);
         visualizeWireframe2D(Image, d3PlotPts2(1:2,:));
@@ -149,7 +151,7 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         subplot(2,2,4);
         visualizeWireframe2D(Image, d3PlotShape(1:2,:));
         title('After shape and pose adjustments');
-        close(h);
+%         close(h);
         out = read_plot();
         %plot_data = [plot_data ;i out];
         [tempinit, temppose, tempshape] = plot_reprojection_error(NetPts',d3PlotPts(1:2,:)',d3PlotPts2(1:2,:)',d3PlotShape(1:2,:)',0);
@@ -177,7 +179,7 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         Terrorpercent = num.*100./denom;
         terrortot = terrortot + Terrorpercent;
         Figplot = [Figplot;i];
-        pause(1.0);
+        pause(0.5);
         %break;
     end
     figuresh = figure;

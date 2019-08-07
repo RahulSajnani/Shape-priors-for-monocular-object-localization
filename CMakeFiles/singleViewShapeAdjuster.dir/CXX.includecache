@@ -6,19 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/costFunctions.hpp
+/home/rahul/Robotics Research Centre/Projects/36KeypointsIROS2017/IROS2017_36/IROS2017/cmake FIles/costFunctions.hpp
 ceres/ceres.h
 -
 ceres/rotation.h
 -
 
-/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/problemStructs.hpp
+/home/rahul/Robotics Research Centre/Projects/36KeypointsIROS2017/IROS2017_36/IROS2017/cmake FIles/problemStructs.hpp
 ceres/ceres.h
 -
 ceres/rotation.h
 -
 
-/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/singleViewShapeAdjuster.cc
+/home/rahul/Robotics Research Centre/Projects/36KeypointsIROS2017/IROS2017_36/IROS2017/cmake FIles/singleViewShapeAdjuster.cc
 cmath
 -
 cstdio
@@ -34,7 +34,7 @@ ceres/iteration_callback.h
 ceres/rotation.h
 -
 problemStructs.hpp
-/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/problemStructs.hpp
+/home/rahul/Robotics Research Centre/Projects/36KeypointsIROS2017/IROS2017_36/IROS2017/cmake FIles/problemStructs.hpp
 costFunctions.hpp
-/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles/costFunctions.hpp
+/home/rahul/Robotics Research Centre/Projects/36KeypointsIROS2017/IROS2017_36/IROS2017/cmake FIles/costFunctions.hpp
 

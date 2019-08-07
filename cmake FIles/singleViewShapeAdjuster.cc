@@ -116,9 +116,9 @@ int main(int argc, char** argv){
 	// For each observation, add a standard PnP error (reprojection error) residual block
 	for(int i = 0; i < numObs; ++i){
 		// Create a vector of eigenvalues for the current keypoint
-		double *curEigVec = new double[15];
+		double *curEigVec = new double[42*3];
 		// std::cout << "curEigVec: ";
-		for(int j = 0; j < 5; ++j){
+		for(int j = 0; j < 42; ++j){
 			curEigVec[3*j+0] = V[3*numObs*j + 3*i + 0];
 			curEigVec[3*j+1] = V[3*numObs*j + 3*i + 1];
 			curEigVec[3*j+2] = V[3*numObs*j + 3*i + 2];
@@ -134,7 +134,7 @@ int main(int argc, char** argv){
 			//new LambdaReprojectionError(X_bar+3*i, observations+2*i, curEigVec, K, observationWeights[i], trans));
 
 
-		ceres::CostFunction *lambdaError = new ceres::AutoDiffCostFunction<LambdaReprojectionError, 2, 3, 5>(
+		ceres::CostFunction *lambdaError = new ceres::AutoDiffCostFunction<LambdaReprojectionError, 2, 3, 42>(
 			new LambdaReprojectionError(X_bar+3*i, observations+2*i, curEigVec, K, observationWeights[i], trans));
 
 
@@ -144,7 +144,7 @@ int main(int argc, char** argv){
 		problem.AddResidualBlock(lambdaError, new ceres::HuberLoss(0.5), rotAngleAxis, lambdas);
 
 		// Add a regularizer (to prevent lambdas from growing too large)
-		ceres::CostFunction *lambdaRegularizer = new ceres::AutoDiffCostFunction<LambdaRegularizer, 3, 5>(
+		ceres::CostFunction *lambdaRegularizer = new ceres::AutoDiffCostFunction<LambdaRegularizer, 3, 42>(
 			new LambdaRegularizer(curEigVec));
 		// Add a residual block to the problem
 		problem.AddResidualBlock(lambdaRegularizer, new ceres::HuberLoss(0.10), lambdas);
@@ -210,7 +210,11 @@ int main(int argc, char** argv){
 	ceres::Solver::Summary summary;
 	ceres::Solve(options, &problem, &summary);
   // std::cout << "Shape adjustment initial cost " << summary.initial_cost << std::endl;
-  sfile << lambdas[0] << " " << lambdas[1] << " " << lambdas[2] << " " << lambdas[3] << " " << lambdas[4] << std::endl;
+  for (int j = 0; j < 42;j++)
+  {
+	  sfile << lambdas[j] << " ";
+  }
+  sfile << std::endl;
   sfile.close();
 //   std::cout << summary.FullReport() << "\n"; 
 

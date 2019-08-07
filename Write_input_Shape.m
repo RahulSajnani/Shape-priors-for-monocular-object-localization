@@ -1,8 +1,8 @@
 function Write_input_Shape(imagePts, carPts,carcent, H, W, L, K, lambda, eigVectors, ry, kplookup, rot, trans)
 
     numViews = 1;
-    numPts = 14;
-    numObs = 14;
+    numPts = 36;
+    numObs = 36;
     xm = (sum(carPts(:,1))./size(carPts,1));
     ym = (sum(carPts(:,2))./size(carPts,1));
     zm = (sum(carPts(:,3))./size(carPts,1));
@@ -43,19 +43,11 @@ function Write_input_Shape(imagePts, carPts,carcent, H, W, L, K, lambda, eigVect
     %kplookup(360 - angle,:)
     %weights
     for i = 1:m
-%         if (i == 5) || (i==6) || (i == 7) || (i == 8)
-%             fprintf(f, '%f ', (0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider + 0.8));
-%         elseif (i == 1) || (i==2) || (i == 3) || (i == 4)
-%             fprintf(f, '%f ', (0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider + 0.5));
-%          if (i == 11) || (i==12) || (i == 13) || (i == 14)
-%              fprintf(f, '%f ', (0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider + 0.5));
-%         if (i == 7 || i == 8)
-%             fprintf(f, '%f ', 0.6);
-%         if (0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider) < 0.4
-%             fprintf(f, '%f ', 0.4);
-%         else
-            fprintf(f, '%f ', (0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider));                  
-%     end
+            if (0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider) < 0.001
+                fprintf(f, '%f ',0.001);
+            else
+                fprintf(f, '%f ', (0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider));                  
+            end
     end
     fprintf(f,'\n');
     fprintf(f,'\n');
@@ -67,8 +59,8 @@ function Write_input_Shape(imagePts, carPts,carcent, H, W, L, K, lambda, eigVect
     fprintf(f,'\n');
     
     %vectors
-    for i = 1:5
-        for j = 1:42
+    for i = 1:42
+        for j = 1:108
             fprintf(f, '%f ',eigVectors(i,j));
         end
         fprintf(f,'\n');
@@ -76,7 +68,7 @@ function Write_input_Shape(imagePts, carPts,carcent, H, W, L, K, lambda, eigVect
     fprintf(f,'\n');
     
     %lambdas
-    for i = 1:5
+    for i = 1:42
         fprintf(f, '%f ',lambda(i));
     end
     fprintf(f,'\n');

@@ -4,7 +4,7 @@ function l = read_lambdas(numViews)
     f = fopen(filename, 'r');
     
     k = fscanf(f,'%lf');
-    m = reshape(k,5,numViews)';
+    m = reshape(k,42,numViews)';
     for i = 1:numViews
         l{i} = m(1,:);
     end

@@ -2,8 +2,8 @@ function out =  Write_input(imagePts, carPts,carcent, H, W, L, K, lambda, eigVec
     
     out = [];
     numViews = 1;
-    numPts = 14;
-    numObs = 14;
+    numPts = 36;
+    numObs = 36;
     xm = (sum(carPts(:,1))./size(carPts,1));
     ym = (sum(carPts(:,2))./size(carPts,1));
     zm = (sum(carPts(:,3))./size(carPts,1));
@@ -44,12 +44,14 @@ function out =  Write_input(imagePts, carPts,carcent, H, W, L, K, lambda, eigVec
     
     %weights
     for i = 1:m
-%         if (0.8*imagePts(i,3) + 0.2*kplookup(angle,i)./divider) < 0.1
-%             fprintf(f, '%f ', 0.1);
-%         else
+        if (0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider) < 0.001
+            fprintf(f, '%f ', 0.001);
+            out = [out;0.001];
+            
+        else
             fprintf(f, '%f ', (0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider));
             out = [out;(0.3*imagePts(i,3) + 0.7*kplookup(angle,i)./divider)];
-%         end
+        end
     end
     
     fprintf(f,'\n');
@@ -62,7 +64,7 @@ function out =  Write_input(imagePts, carPts,carcent, H, W, L, K, lambda, eigVec
     fprintf(f,'\n');
     
     %vectors
-    for i = 1:5
+    for i = 1:42
         for j = 1:3*numPts
             fprintf(f, '%f ',eigVectors(i,j));
         end
@@ -71,7 +73,7 @@ function out =  Write_input(imagePts, carPts,carcent, H, W, L, K, lambda, eigVec
     fprintf(f,'\n');
     
     %lambdas
-    for i = 1:5
+    for i = 1:42
         fprintf(f, '%f ',lambda(i));
     end
     fclose(f);

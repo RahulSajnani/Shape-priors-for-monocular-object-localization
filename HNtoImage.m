@@ -5,7 +5,7 @@ function y = HNtoImage(Pts, tableVals)
     for i = 1:m
         
         
-        d2plot = reshape(Pts(i,:),3,14)';
+        d2plot = reshape(Pts(i,:),3,36)';
         xp1 = table2array(tableVals(i, {'x1'}));
         yp1 = table2array(tableVals(i, {'y1'}));
         xp2 = table2array(tableVals(i, {'x2'}));

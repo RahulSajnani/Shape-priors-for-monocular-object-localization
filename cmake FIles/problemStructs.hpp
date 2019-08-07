@@ -83,10 +83,10 @@ public:
 			}
 		}
 
-		// Read in the top 5 eigenvectors for the shape
-		// Size allocation: 5 vecs * 3 coordinates per vex * 14 keypoints (numPts_)
-		V_ = new double[5*3*numPts_];
-		for(int i = 0; i < 5; ++i){
+		// Read in the top 42 eigenvectors for the shape
+		// Size allocation: 42 vecs * 3 coordinates per vex * 14 keypoints (numPts_)
+		V_ = new double[42*3*numPts_];
+		for(int i = 0; i < 42; ++i){
 			for(int j = 0; j < numPts_; ++j){
 				fscanfOrDie(fptr, "%lf", V_ + i*3*numPts_ + 3*j + 0);
 				fscanfOrDie(fptr, "%lf", V_ + i*3*numPts_ + 3*j + 1);
@@ -95,30 +95,32 @@ public:
 		}
 
 		// Read in the initial values for lambdas
-		lambdas_ = new double[5];
-		for(int i = 0; i < 5; ++i){
+		lambdas_ = new double[42];
+		for(int i = 0; i < 42; ++i){
 			fscanfOrDie(fptr, "%lf", lambdas_ + i);
 		}
 
 
 
-		// // Printing out data (for verification)
-		// std::cout << "numViews: " << numViews_ << std::endl;
-		// std::cout << "numPoints: " << numPts_ << std::endl;
-		// std::cout << "numObs: " << numObs_ << std::endl;
-		// std::cout << "K: " << K_[0] << " " << K_[1] << " " << K_[2] << " " << K_[3] << " " \
-		// 	<< K_[4] << " " << K_[5] << " " << K_[6] << " " << K_[7] << " " << K_[8] << std::endl;
-		// for(int i = 0; i < numObs_; ++i){
-		// 	std::cout << "Obs: " << observations_[0+2*i] << " " << observations_[1+2*i] << std::endl;
-		// }
-		// for(int i = 0; i < numObs_; ++i){
-		// 	std::cout << "ObsWeight: " << observationWeights_[i] << std::endl;
-		// }
-		// for(int i = 0; i < numObs_; ++i){
-		// 	std::cout << "3D Point: " << X_bar_[0+3*i] << " " << X_bar_[1+3*i] << " " \
-		// 	<< X_bar_[2+3*i] << std::endl;
-		// }
-
+		// Printing out data (for verification)
+		std::cout << "numViews: " << numViews_ << std::endl;
+		std::cout << "numPoints: " << numPts_ << std::endl;
+		std::cout << "numObs: " << numObs_ << std::endl;
+		std::cout << "K: " << K_[0] << " " << K_[1] << " " << K_[2] << " " << K_[3] << " " \
+			<< K_[4] << " " << K_[5] << " " << K_[6] << " " << K_[7] << " " << K_[8] << std::endl;
+		for(int i = 0; i < numObs_; ++i){
+			std::cout << "Obs: " << observations_[0+2*i] << " " << observations_[1+2*i] << std::endl;
+		}
+		for(int i = 0; i < numObs_; ++i){
+			std::cout << "ObsWeight: " << observationWeights_[i] << std::endl;
+		}
+		for(int i = 0; i < numObs_; ++i){
+			std::cout << "3D Point: " << X_bar_[0+3*i] << " " << X_bar_[1+3*i] << " " \
+			<< X_bar_[2+3*i] << std::endl;
+		}
+		for(int i = 0; i< 42; i++){
+			std::cout<<lambdas_[i]<<" ";
+		}
 		return true;
 
 	}
@@ -255,8 +257,8 @@ public:
 
 		// Read in the top 5 eigenvectors for the shape
 		// Size allocation: 5 vecs * 3 coordinates per vex * 14 keypoints (numPts_)
-		V_ = new double[5*3*numPts_];
-		for(int i = 0; i < 5; ++i){
+		V_ = new double[42*3*numPts_];
+		for(int i = 0; i < 42; ++i){
 			for(int j = 0; j < numPts_; ++j){
 				fscanfOrDie(fptr, "%lf", V_ + i*3*numPts_ + 3*j + 0);
 				fscanfOrDie(fptr, "%lf", V_ + i*3*numPts_ + 3*j + 1);
@@ -265,8 +267,8 @@ public:
 		}
 
 		// Read in the initial values for lambdas
-		lambdas_ = new double[5];
-		for(int i = 0; i < 5; ++i){
+		lambdas_ = new double[42];
+		for(int i = 0; i < 42; ++i){
 			fscanfOrDie(fptr, "%lf", lambdas_ + i);
 		}
 

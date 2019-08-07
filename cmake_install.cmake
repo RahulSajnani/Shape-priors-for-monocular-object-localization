@@ -1,4 +1,4 @@
-# Install script for directory: /home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/cmake FIles
+# Install script for directory: /home/rahul/Robotics Research Centre/Projects/36KeypointsIROS2017/IROS2017_36/IROS2017/cmake FIles
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/rahul/Robotics Research Centre/Projects/IROS2017/proj_dir/IROS2017/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/rahul/Robotics Research Centre/Projects/36KeypointsIROS2017/IROS2017_36/IROS2017/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
