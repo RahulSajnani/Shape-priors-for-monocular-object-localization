@@ -110,9 +110,9 @@ int main(int argc, char** argv){
 			// Eigen vector of the current keypoint. The eigen vector given as input also incorporates the rotation after pose adjustment.	
 			double *curEigVec = new double[3*42];
 			for(int k = 0; k < 42; ++k){
-				curEigVec[3*k+0] = V[i*3*5*numPts + 3*numPts*k + 3*j + 0];
-				curEigVec[3*k+1] = V[i*3*5*numPts + 3*numPts*k + 3*j + 1];
-				curEigVec[3*k+2] = V[i*3*5*numPts + 3*numPts*k + 3*j + 2];
+				curEigVec[3*k+0] = V[i*3*42*numPts + 3*numPts*k + 3*j + 0];
+				curEigVec[3*k+1] = V[i*3*42*numPts + 3*numPts*k + 3*j + 1];
+				curEigVec[3*k+2] = V[i*3*42*numPts + 3*numPts*k + 3*j + 2];
 				
 			}
 
@@ -122,6 +122,12 @@ int main(int argc, char** argv){
 			new LambdaReprojectionError(X_bar+ i*numPts*3 + 3*j, observations + i*numPts*2 + 2*j, curEigVec, K, observationWeights[i*numPts + j],trans + 3*i ));
 		// Add a residual block to the problem
 		shapeProblem.AddResidualBlock(lambdaError, new ceres::HuberLoss(0.8),rotAxis + 3*i,lambdas);
+
+				// Add a regularizer (to prevent lambdas from growing too large)
+		// ceres::CostFunction *lambdaRegularizer = new ceres::AutoDiffCostFunction<LambdaRegularizer, 3, 42>(
+		// 	new LambdaRegularizer(curEigVec));
+		// // Add a residual block to the problem
+		// shapeProblem.AddResidualBlock(lambdaRegularizer, new ceres::HuberLoss(0.10), lambdas);
 	
 
 
@@ -218,9 +224,9 @@ int main(int argc, char** argv){
 			temp[2] = X_bar[i*numPts*3 + 3*j + 2];
 
 			for(int k = 0; k < 42; k++){
-				temp[0] += lambdas[k]*V[i*3*5*numPts + 3*numPts*k + 3*j + 0];
-				temp[1] += lambdas[k]*V[i*3*5*numPts + 3*numPts*k + 3*j + 1];
-				temp[2] += lambdas[k]*V[i*3*5*numPts + 3*numPts*k + 3*j + 2];
+				temp[0] += lambdas[k]*V[i*3*42*numPts + 3*numPts*k + 3*j + 0];
+				temp[1] += lambdas[k]*V[i*3*42*numPts + 3*numPts*k + 3*j + 1];
+				temp[2] += lambdas[k]*V[i*3*42*numPts + 3*numPts*k + 3*j + 2];
 			}
 			ceres::AngleAxisRotatePoint(rotAxis + 3*i, temp, temp);
 			temp[0] += trans[3*i + 0];

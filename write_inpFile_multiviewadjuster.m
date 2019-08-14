@@ -33,7 +33,7 @@ end
 % write the lambdas
 ll=LaftersingleView{1};
 for i=2:numViews
-    ll = ll + LaftersingleView{2};
+    ll = ll + LaftersingleView{i};
 end
 ll=ll/numViews;
 for i = 1:42

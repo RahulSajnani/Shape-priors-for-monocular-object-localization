@@ -1,10 +1,10 @@
 temp = load('kpLookup_azimuth.mat');
 kplookup = struct2array(temp);
 camH = 1.65;
-seqId = 5;
-CarId = 17;
-startFrame = 178;
-endFrame = 200;
+seqId = 1;
+CarId = 4;
+startFrame = 25;
+endFrame = 35;
 totalFrames = endFrame - startFrame + 1;
 seq = seqId*ones(1,totalFrames); %Sequences
 frm = [startFrame:endFrame]; %Frames

@@ -481,9 +481,9 @@ public:
 		for(int i=0;i<numViews_;i++){
 			for(int j = 0; j < 42; ++j){
 				for(int k = 0; k < numPts_; ++k){
-					fscanfOrDie(fptr, "%lf", V_ + i*3*5*numPts_ + j*3*numPts_ + 3*k + 0);
-					fscanfOrDie(fptr, "%lf", V_ + i*3*5*numPts_ + j*3*numPts_ + 3*k + 1);
-					fscanfOrDie(fptr, "%lf", V_ + i*3*5*numPts_ + j*3*numPts_ + 3*k + 2);
+					fscanfOrDie(fptr, "%lf", V_ + i*3*42*numPts_ + j*3*numPts_ + 3*k + 0);
+					fscanfOrDie(fptr, "%lf", V_ + i*3*42*numPts_ + j*3*numPts_ + 3*k + 1);
+					fscanfOrDie(fptr, "%lf", V_ + i*3*42*numPts_ + j*3*numPts_ + 3*k + 2);
 			
 				}
 			}

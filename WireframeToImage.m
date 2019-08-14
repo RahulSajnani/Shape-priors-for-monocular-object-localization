@@ -55,7 +55,7 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         
         
         %azimuthal angle with some noise
-        ry = table2array(tracklets(i,{'ry'})) + normrnd(0,15*pi/180)
+        ry = table2array(tracklets(i,{'ry'})) + normrnd(0,5*pi/180)
         
         %calculating translation vector
         Trans = TransFromPoint(xp, yp, height_camera, K);
@@ -71,7 +71,7 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         
         %visualizeWireframe3D(frame2', ry, Trans);
         SHAPEbeforesingleView{i} = d3PlotPtsWorld3d';
-        CENTER{i} = mean(d3PlotPtsWorld3d');
+        CENTER{i} = mean(d3PlotPtsWorld3d')
         
         for j=1:42
              eigVectors(j,:) =reshape(((T3)*(T2)*(inv(r))*reshape(eigVectors2(j,:),3,36)),1,3*36);
@@ -151,7 +151,7 @@ function WireframeToImage(wireframe, seqs, frames, ids, height_camera, avgL, avg
         subplot(2,2,4);
         visualizeWireframe2D(Image, d3PlotShape(1:2,:));
         title('After shape and pose adjustments');
-%         close(h);
+        close(h);
         out = read_plot();
         %plot_data = [plot_data ;i out];
         [tempinit, temppose, tempshape] = plot_reprojection_error(NetPts',d3PlotPts(1:2,:)',d3PlotPts2(1:2,:)',d3PlotShape(1:2,:)',0);

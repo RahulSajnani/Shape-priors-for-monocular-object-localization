@@ -118,7 +118,7 @@ int main(int argc, char** argv){
 
 		// Create a cost function for the lambda reprojection error term
 		// i.e., std reprojection error, but instead of 3D points and R,t, we solve for lambdas (shape params)	
-		ceres::CostFunction *lambdaError = new ceres::AutoDiffCostFunction<LambdaReprojectionError, 2,3,5>(
+		ceres::CostFunction *lambdaError = new ceres::AutoDiffCostFunction<LambdaReprojectionError, 2,3,42>(
 			new LambdaReprojectionError(X_bar+ i*numPts*3 + 3*j, observations + i*numPts*2 + 2*j, curEigVec, K, observationWeights[i*numPts + j],trans + 3*i ));
 		// Add a residual block to the problem
 		shapeProblem.AddResidualBlock(lambdaError, new ceres::HuberLoss(0.8),rotAxis + 3*i,lambdas);

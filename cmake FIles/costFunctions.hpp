@@ -612,9 +612,9 @@ struct TranslationRegularizer{
 	template <typename T>
 	bool operator() (const T* trans, T* residuals) const{
 
-		residuals[0] = T(10)*trans[0];
-		residuals[1] = T(10)*trans[1];
-		residuals[2] = T(10)*trans[2];
+		residuals[0] = T(15)*trans[0];
+		residuals[1] = T(15)*trans[1];
+		residuals[2] = T(100)*trans[2];
 
 		return true;
 	}
@@ -635,9 +635,9 @@ struct RotationRegularizer{
 	template <typename T>
 	bool operator() (const T* rot, T* residuals) const{
 
-		residuals[0] = T(5000)*rot[0];
+		residuals[0] = T(500)*rot[0];
 		residuals[1] = T(0);
-		residuals[2] = T(5000)*rot[2];
+		residuals[2] = T(500)*rot[2];
 
 		return true;
 	}

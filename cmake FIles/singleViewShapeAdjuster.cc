@@ -141,7 +141,7 @@ int main(int argc, char** argv){
 
 
 		// Add a residual block to the problem
-		problem.AddResidualBlock(lambdaError, new ceres::HuberLoss(0.5), rotAngleAxis, lambdas);
+		problem.AddResidualBlock(lambdaError, new ceres::HuberLoss(0.8), rotAngleAxis, lambdas);
 
 		// Add a regularizer (to prevent lambdas from growing too large)
 		ceres::CostFunction *lambdaRegularizer = new ceres::AutoDiffCostFunction<LambdaRegularizer, 3, 42>(
@@ -234,7 +234,7 @@ int main(int argc, char** argv){
 		temp[1] = X_bar_initial[3*i+1];
 		temp[2] = X_bar_initial[3*i+2];
 
-		for(int j = 0; j < 5; ++j){
+		for(int j = 0; j < 42; ++j){
 			temp[0] += lambdas[j]*V[3*numObs*j + 3*i + 0];
 			temp[1] += lambdas[j]*V[3*numObs*j + 3*i + 1];
 			temp[2] += lambdas[j]*V[3*numObs*j + 3*i + 2];

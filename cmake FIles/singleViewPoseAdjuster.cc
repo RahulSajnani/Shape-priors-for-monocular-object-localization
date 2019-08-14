@@ -134,14 +134,14 @@ int main(int argc, char** argv){
 			new PnPError(X_bar_initial+3*i, observations+2*i, curEigVec, K, observationWeights[i], lambdas));
 		// Add a residual block to the problem
 		// ceres::HuberLoss(0.8) worked for most cases
-		problem.AddResidualBlock(pnpError, new ceres::HuberLoss(2.0), rotAngleAxis, trans);
+		problem.AddResidualBlock(pnpError, new ceres::HuberLoss(20.0), rotAngleAxis, trans);
 	}
 
 
 	// Add a regularizer to the translation term (to prevent a huge drift from the initialization)
 	ceres::CostFunction *translationRegularizer = new ceres::AutoDiffCostFunction<TranslationRegularizer, 3, 3>(
 		new TranslationRegularizer(carCenter));
-	problem.AddResidualBlock(translationRegularizer, new ceres::HuberLoss(0.2), trans);
+	problem.AddResidualBlock(translationRegularizer, new ceres::HuberLoss(0.01), trans);
 
 	// Add a rotation regularizer, to ensure that the rotation is about the Y-axis
 	ceres::CostFunction *rotationRegularizer = new ceres::AutoDiffCostFunction<RotationRegularizer, 3, 3>(
